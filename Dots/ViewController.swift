@@ -13,7 +13,7 @@ class ViewController: UIViewController, DotsViewDataSource {
 	var selected: Array<Array<Bool>>!
 	var timeRemaining: Int = 60
 	var points: Int = 0
-
+	
 	@IBOutlet weak var time: UILabel!
 	@IBOutlet weak var score: UILabel!
 	
@@ -94,7 +94,9 @@ class ViewController: UIViewController, DotsViewDataSource {
 				addToScore(1)
 			}
 		}
-		
+		for i in 0...5 {
+			dropCol(index: i)
+		}
 		v.linePoints = nil
 		view.setNeedsDisplay()
 	}
@@ -152,9 +154,18 @@ class ViewController: UIViewController, DotsViewDataSource {
 	}
 	
 	func dropCol(#index: Int) {
-		for y in 0...5 {
-			
+		for y in 0...4 {
+			for k in 0...4 {
+				if (dots[index][k] == UIColor.grayColor()) {
+					if (k == 4) {
+						dots[index][5] = randomDotColor()
+					} else {
+						dots[index][5-k] = dots[index][6-k]
+					}
+				}
+			}
 		}
+		
 	}
 	
 	@IBAction func reset() {
